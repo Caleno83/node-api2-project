@@ -5,7 +5,7 @@ const router = express.Router();
 
 //Creating a new post
 
-router.post("/api/posts", (req, res) => {
+router.post("/posts", (req, res) => {
   if (!req.body.title || !req.body.contents) {
     return res.status(400).json({
       errorMessage: "Please provide title and contents for the post.",
@@ -26,7 +26,7 @@ router.post("/api/posts", (req, res) => {
 });
 
 // create endpoint for adding a new post for a specific comment
-router.post("/api/posts/:id/comments", (req, res) => {
+router.post("/posts/:id/comments", (req, res) => {
   if (!req.body.text) {
     return res.status(400).json({
       errorMessage: "Please provide text for the comment.",
@@ -60,7 +60,7 @@ router.post("/api/posts/:id/comments", (req, res) => {
 });
 
 //fetching all posts
-router.get("/api/posts", (req, res) => {
+router.get("/posts", (req, res) => {
   posts
     .find(req.query)
     .then((post) => {
@@ -75,7 +75,7 @@ router.get("/api/posts", (req, res) => {
 });
 
 //fetching a specific post
-router.get("/api/posts/:id", (req, res) => {
+router.get("/posts/:id", (req, res) => {
   posts
     .findById(req.params.id)
 
@@ -97,7 +97,7 @@ router.get("/api/posts/:id", (req, res) => {
 });
 
 // create endpoint that returns a post with specific comment
-router.get("/api/posts/:id/comments", (req, res) => {
+router.get("/posts/:id/comments", (req, res) => {
   posts
     .findPostComments(req.params.id)
     .then((post) => {
@@ -121,7 +121,7 @@ router.get("/api/posts/:id/comments", (req, res) => {
 });
 
 //deleting a specific post
-router.delete("/api/posts/:id", (req, res) => {
+router.delete("/posts/:id", (req, res) => {
   posts
     .remove(req.params.id)
     .then((count) => {
@@ -144,7 +144,7 @@ router.delete("/api/posts/:id", (req, res) => {
 });
 
 //updating a specific post
-router.put("/api/posts/:id", (req, res) => {
+router.put("/posts/:id", (req, res) => {
   if (!req.body.title || !req.body.contents) {
     return res.status(400).json({
       errorMessage: "Please provide title and contents for the post.",
